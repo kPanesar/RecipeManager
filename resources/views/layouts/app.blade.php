@@ -6,7 +6,6 @@
 
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link href="https://fonts.googleapis.com/css?family=Fira+Sans:300,400,700" rel="stylesheet">
-      <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
       <link rel="stylesheet" href="{{ URL::asset('css/style.css') }}">
 
   </head>
@@ -69,7 +68,9 @@
     <div class="container-fluid">
         @yield('content')
     </div>
+    <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="{{ asset('js/script.js') }}"></script>
   </body>
 </html>

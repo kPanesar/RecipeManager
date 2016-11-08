@@ -41,6 +41,19 @@
 
         {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
         {!! Form::close() !!}
+
+        <div class="row">
+            <div class="col-xs-12 form-group">
+                <a id="ingredient_btn" class="btn btn-default">
+                    <p><span class="glyphicon glyphicon-plus text-red" aria-hidden="true"></span> Add Ingredient</p>
+                </a>
+            </div>
+        </div>
+
+        <div id="ingredient_area">
+            {{--Dynamically generated fields here--}}
+        </div>
+
     </div>
 @stop
 
