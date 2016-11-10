@@ -79,7 +79,7 @@ class RecipesController extends Controller
     }
 
     /**
-     * Update Cat in storage.
+     * Update Recipe in storage.
      *
      * @param  \App\Http\Requests\UpdateRecipesRequest  $request
      * @param  int  $id
