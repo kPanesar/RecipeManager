@@ -22,8 +22,9 @@
                               'route' => ['recipes.destroy', $recipe->id])) !!}
             {!! Form::submit('Delete', array('class' => 'btn btn-primary')) !!}
             {!! Form::close() !!}
-
         </div>
+
+        <example></example>
     </div>
 @stop
 

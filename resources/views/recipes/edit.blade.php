@@ -54,37 +54,7 @@
 
         </div>
 
-        <div id="ingredients">
-            <ul>
-                <li v-for="item in items">
-                    @{{ item.message }}
-                </li>
-            </ul>
-        </div>
-
     </div>
-
-    <script>
-        var ingredients = new Vue({
-            el: '#ingredients',
-            data: {
-                items: [
-                    { message: 'Foo' },
-                    { message: 'Bar' }
-                ]
-            },
-            created: function () {
-                console.log('Created!!');
-            }
-        });
-
-        var app = new Vue({
-            el: '#app',
-            data: {
-                message: 'Hello Vue!'
-            }
-        });
-    </script>
 
 @stop
 
