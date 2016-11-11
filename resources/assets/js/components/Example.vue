@@ -4,9 +4,8 @@
             <div class="col-md-8 col-md-offset-2">
                 <div class="panel panel-default">
                     <div class="panel-heading">Example Component</div>
-
                     <div class="panel-body">
-                        I'm an example component! Yea!
+                        {{ message }}
                     </div>
                 </div>
             </div>
@@ -15,9 +14,22 @@
 </template>
 
 <script>
+
+    var data = { counter: 0 }
+
     export default {
+
+        props: ['message'],
+
+        data(){
+            return{
+                counter: 0
+            };
+        },
+
         mounted() {
             console.log('Component ready.')
         }
     }
+
 </script>

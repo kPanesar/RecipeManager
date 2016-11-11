@@ -50,12 +50,17 @@
             </div>
         </div>
 
-        <div id="ingredient_area">
-
+        <div id="recipe">
+            @foreach($recipe->ingredients as $ingredient)
+                <ingredient
+                        quantity    = "{{ $ingredient->quantity }}"
+                        unit        = "{{ $ingredient->unit }}"
+                        name        = "{{ $ingredient->name }}"
+                ></ingredient>
+            @endforeach
         </div>
 
     </div>
-
 @stop
 
 

@@ -68,7 +68,7 @@ class RecipesController extends Controller
     public function edit($id)
     {
         //$ingredient = Ingredient::orderBy('name')->get();
-        $recipe = Recipe::findOrFail($id);
+        $recipe = Recipe::with('ingredients', 'directions')->findOrFail($id);
         return view('recipes.edit', compact('recipe'));
     }
 
