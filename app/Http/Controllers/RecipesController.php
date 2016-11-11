@@ -6,6 +6,7 @@ use App\Http\Requests\StoreRecipesRequest;
 use App\Http\Requests\UpdateRecipesRequest;
 use Illuminate\Http\Request;
 use App\Recipe;
+use App\Ingredient;
 
 use App\Http\Controllers\Traits\FileUploadTrait;
 use Illuminate\Support\Facades\App;
@@ -50,10 +51,7 @@ class RecipesController extends Controller
         // Append ingredients
         $ingredients = $request->get('ingredients');
         if(is_array($ingredients)) {
-            foreach ($ingredients as $ingredient) {
-                //TODO: Create function attach()
-                //$recipe->ingredients()->attach($ingredient);
-            }
+            $recipe->ingredients()->saveMany($ingredients);
         }
 
         return redirect()->route('recipes.index');

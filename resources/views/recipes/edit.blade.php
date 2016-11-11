@@ -39,33 +39,43 @@
             </div>
         </div>
 
-        {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
-        {!! Form::close() !!}
-
-        <div id="ingredients" class="row">
-            <div class="col-xs-12 form-group">
-                <a id="ingredient_btn" class="btn btn-default">
-                    <p><span class="glyphicon glyphicon-plus text-red" aria-hidden="true"></span> Add Ingredient</p>
-                </a>
-            </div>
-        </div>
-
         <div id="recipe">
+            <a id="ingredient_btn" class="btn btn-default">
+                <p><span class="glyphicon glyphicon-plus text-red" aria-hidden="true"></span> Add an Ingredient</p>
+            </a>
+            <h4>Ingredients</h4>
             @foreach($recipe->ingredients as $ingredient)
-                <ingredient
+                <ingredientform
                         quantity    = "{{ $ingredient->quantity }}"
                         unit        = "{{ $ingredient->unit }}"
                         name        = "{{ $ingredient->name }}"
-                ></ingredient>
+                ></ingredientform>
             @endforeach
 
+            <br>
+
+            <div class="row">
+                <div class="col-sm-10">
+                    <h4>Directions</h4>
+                </div>
+                <div class="col-sm-2">
+                    <a id="ingredient_btn" class="btn btn-default">
+                        <p><span class="glyphicon glyphicon-plus text-red" aria-hidden="true"></span> Add a Step</p>
+                    </a>
+                </div>
+            </div>
+
+
             @foreach($recipe->directions as $direction)
-                <direction
+                <directionform
                         step        = "{{ $direction->step_num }}"
                         direction   = "{{ $direction->direction_text }}"
-                ></direction>
+                ></directionform>
             @endforeach
         </div>
+
+        {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}
+        {!! Form::close() !!}
 
     </div>
 @stop
