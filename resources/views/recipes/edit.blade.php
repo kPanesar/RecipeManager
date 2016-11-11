@@ -58,6 +58,13 @@
                         name        = "{{ $ingredient->name }}"
                 ></ingredient>
             @endforeach
+
+            @foreach($recipe->directions as $direction)
+                <direction
+                        step        = "{{ $direction->step_num }}"
+                        direction   = "{{ $direction->direction_text }}"
+                ></direction>
+            @endforeach
         </div>
 
     </div>

@@ -15,6 +15,7 @@ require('./bootstrap');
 
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('ingredient', require('./components/Ingredient.vue'));
+Vue.component('direction', require('./components/Direction.vue'));
 
 const recipe = new Vue({
     el: '#recipe'
