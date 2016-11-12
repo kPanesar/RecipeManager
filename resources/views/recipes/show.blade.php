@@ -27,28 +27,11 @@
 
             <br>
 
-            <h4>Ingredients</h4>
-            <ul>
-                @foreach($recipe->ingredients as $ingredient)
-                    <ingredient
-                            quantity    = "{{ $ingredient->quantity }}"
-                            unit        = "{{ $ingredient->unit }}"
-                            name        = "{{ $ingredient->name }}"
-                    ></ingredient>
-                @endforeach
-            </ul>
+            <ingredients :ingredients="{{ $recipe->ingredients }}"></ingredients>
 
             <br>
 
-            <h4>Directions</h4>
-            <ol>
-                @foreach($recipe->directions as $direction)
-                    <direction
-                            step        = "{{ $direction->step_num }}"
-                            direction   = "{{ $direction->direction_text }}"
-                    ></direction>
-                @endforeach
-            </ol>
+            <directions :directions="{{ $recipe->directions }}"></directions>
 
         </div>
     </div>

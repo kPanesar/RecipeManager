@@ -46,9 +46,9 @@
             <h4>Ingredients</h4>
             @foreach($recipe->ingredients as $ingredient)
                 <ingredientform
-                        quantity    = "{{ $ingredient->quantity }}"
-                        unit        = "{{ $ingredient->unit }}"
-                        name        = "{{ $ingredient->name }}"
+                        quantity   = "{{ $ingredient->quantity }}"
+                        unit       = "{{ $ingredient->unit }}"
+                        name       = "{{ $ingredient->name }}"
                 ></ingredientform>
             @endforeach
 
@@ -72,6 +72,9 @@
                         direction   = "{{ $direction->direction_text }}"
                 ></directionform>
             @endforeach
+
+            <button class="btn btn-default" @click="printConsole">Component Button</button>
+
         </div>
 
         {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}

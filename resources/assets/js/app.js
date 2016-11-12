@@ -16,8 +16,8 @@ require('./bootstrap');
 Vue.component('example', require('./components/Example.vue'));
 Vue.component('ingredientform', require('./components/IngredientForm.vue'));
 Vue.component('directionform', require('./components/DirectionForm.vue'));
-Vue.component('ingredient', require('./components/Ingredient.vue'));
-Vue.component('direction', require('./components/Direction.vue'));
+Vue.component('ingredients', require('./components/Ingredients.vue'));
+Vue.component('directions', require('./components/Directions.vue'));
 
 const recipe = new Vue({
     el: '#recipe'
