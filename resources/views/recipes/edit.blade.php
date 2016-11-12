@@ -73,8 +73,6 @@
                 ></directionform>
             @endforeach
 
-            <button class="btn btn-default" @click="printConsole">Component Button</button>
-
         </div>
 
         {!! Form::submit('Update', ['class' => 'btn btn-primary']) !!}

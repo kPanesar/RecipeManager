@@ -54,6 +54,12 @@ class RecipesController extends Controller
             $recipe->ingredients()->saveMany($ingredients);
         }
 
+        // Append directions
+        $directions = $request->get('directions');
+        if(is_array($directions)) {
+            $recipe->directions()->saveMany($directions);
+        }
+
         return redirect()->route('recipes.index');
     }
 

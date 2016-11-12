@@ -2,13 +2,12 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="form-group">
-                <label for="step"> {{ step }} </label>
-                <input ref="input" id="step" class="form-control" name="step" type="text"
-                       v-bind:value="direction"
+                <label for="direction"> {{ step }} </label>
+                <input ref="input" id="direction" class="form-control" name="direction" type="text"
+                       :value="direction"
                        v-on:input="checkQuantity($event.target.value)">
             </div>
         </div>
-
     </div>
 </template>
 
