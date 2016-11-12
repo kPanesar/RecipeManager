@@ -13,7 +13,6 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('example', require('./components/Example.vue'));
 Vue.component('ingredientform', require('./components/IngredientForm.vue'));
 Vue.component('directionform', require('./components/DirectionForm.vue'));
 Vue.component('ingredients', require('./components/Ingredients.vue'));
