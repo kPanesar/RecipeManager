@@ -57,6 +57,7 @@
             </div>
         </div>
 
+
         {{--<div id="recipe">--}}
             {{--<a id="ingredient_btn" class="btn btn-default">--}}
                 {{--<p><span class="glyphicon glyphicon-plus text-red" aria-hidden="true"></span> Add an Ingredient</p>--}}

@@ -15,11 +15,13 @@ Vue.use(require('vue-resource'));
  * the application, or feel free to tweak this setup for your needs.
  */
 
-Vue.component('ingredientform', require('./components/IngredientForm.vue'));
-Vue.component('directionform', require('./components/DirectionForm.vue'));
-Vue.component('ingredients', require('./components/Ingredients.vue'));
-Vue.component('directions', require('./components/Directions.vue'));
-
 const recipe = new Vue({
-    el: '#recipe'
+    el: '#recipe',
+
+    components: {
+        'ingredients'   : require('./components/Ingredients.vue'),
+        'directions'    : require('./components/Directions.vue'),
+        'ingredientform': require('./components/IngredientForm.vue'),
+        'directionform' : require('./components/DirectionForm.vue')
+    }
 });
