@@ -91,11 +91,13 @@ class RecipesController extends Controller
      */
     public function update(UpdateRecipesRequest $request, $id)
     {
-        $request = $this->saveFiles($request);
-        $recipe = Recipe::findOrFail($id);
-        $recipe->update($request->all());
+//        $request = $this->saveFiles($request);
+//        $recipe = Recipe::findOrFail($id);
+//        $recipe->update($request->all());
+//
+//        return redirect()->route('recipes.index');
 
-        return redirect()->route('recipes.index');
+        return $request->all();
     }
 
     /**
