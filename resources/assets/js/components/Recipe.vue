@@ -3,7 +3,7 @@
         <div class="col-xs-12">
             <div v-show="!editable">
                 <button class="btn btn-default pull-right" @click="toggleEditable">Edit</button>
-                <h1>{{ my_recipe.name }}</h1>
+                <h1>{{ recipe.name }}</h1>
                 <p>{{ my_recipe.description }}</p>
             </div>
             <form v-show="editable">
@@ -100,7 +100,6 @@
 
         data: function () {
             return{
-                my_recipe: this.recipe,
                 new_ingredient:
                     {
                         quantity    : null,
@@ -113,11 +112,24 @@
                         step_num        : null,
                         direction_text  : ''
                     },
+                my_recipe               : this.recipe,
                 editable: false
             }
         },
 
+        mounted() {
+            this.fetchData('/RecipeManager/public/recipes/1');
+        },
+
         methods: {
+
+            fetchData: function( url ) {
+                $.get( url, function( data ) {
+                    console.log(data);
+                    this.my_recipe = data;
+                });
+            },
+
             changeName: function (e) {
                 this.my_recipe.photo = e.target;
             },
@@ -179,9 +191,6 @@
             orderedDirections: function () {
                 return _.orderBy(this.my_recipe.directions, 'step_num')
             }
-        },
-
-        mounted() {
         }
     }
 </script>

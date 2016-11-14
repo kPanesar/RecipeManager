@@ -79,7 +79,7 @@ class RecipesController extends Controller
     public function show($id)
     {
         $recipe = Recipe::with('ingredients', 'directions')->findOrFail($id);
-        return view('recipes.show', compact('recipe'));
+        return compact('recipe');
     }
 
     /**
