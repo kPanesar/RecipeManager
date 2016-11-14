@@ -82,6 +82,8 @@
                         v-on:removeDirection="my_recipe.directions.splice(index, 1)"
             ></direction>
         </ol>
+
+        <button class="btn  btn-success" @click="updateRecipe">Update</button>
     </div>
 </template>
 
@@ -130,7 +132,24 @@
                         step_num        : null,
                         direction_text  : ''
                     }
-            }
+            },
+
+            updateRecipe: function(item) {
+                var recipe_id = this.my_recipe.id;
+
+                $.ajax({
+                    type:"PUT",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+//                    url: '/recipes/' + recipe_id,
+                    url: '/RecipeManager/public/recipes/1',
+                    data: this.my_recipe,
+                    success: function(data) {
+                        alert('Recipe saved');
+                    }
+                });
+            },
         },
 
         components: {
