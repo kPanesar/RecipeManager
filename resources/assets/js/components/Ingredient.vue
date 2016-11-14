@@ -1,12 +1,8 @@
 <template>
     <div>
-        <li class="list-group-item">
+        <li>
             {{ingredient.quantity}} {{ingredient.unit}} {{ingredient.name}}
-            <span class="pull-right">
-                <button type="button" class="btn btn-danger" v-on:click="$emit('removeIngredient')" v-show="editable">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-            </span>
+            <span class="glyphicon glyphicon-remove" v-on:click="$emit('removeIngredient')" v-show="editable"></span>
         </li>
     </div>
 </template>

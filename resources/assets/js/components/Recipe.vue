@@ -47,11 +47,10 @@
                            placeholder="Ingredient">
                 </div>
                 <button class="btn btn-default" @click="addIngredient">Add Ingredient</button>
+                <br>
             </form>
 
-            <br>
-
-            <ul class="list-group">
+            <ul>
                 <ingredient v-for="(ingredient, index) in my_recipe.ingredients"
                             :ingredient="ingredient"
                             :editable="editable"
@@ -64,7 +63,7 @@
                 <div class="form-group">
                     <label for="step-num" class="sr-only">Step Number</label>
                     <input id="step-num"
-                           type="text"
+                           type="number"
                            v-model="new_direction.step_num"
                            class="form-control"
                            placeholder="Step Number">
@@ -78,18 +77,17 @@
                            placeholder="Direction">
                 </div>
                 <button class="btn btn-default" @click="addDirection">Add Direction</button>
+                <br>
             </form>
 
-            <br>
-
-            <ol class="list-group" ref="sortable">
+            <ul class="list-unstyled">
                 <direction v-for="(direction, index) in orderedDirections"
                            :key="direction.step_num"
                            :direction="direction"
                            :editable="editable"
                            v-on:removeDirection="my_recipe.directions.splice(index, 1)"
                 ></direction>
-            </ol>
+            </ul>
 
             <button class="btn  btn-success" @click="updateRecipe" v-show="editable">Update</button>
         </div>
@@ -189,7 +187,7 @@
 </script>
 
 <style>
-    .list-group {
-        line-height:40px;
+    .no-bullet {
+        list-style-type: none;
     }
 </style>
