@@ -43,7 +43,8 @@
                     <h4 class="modal-title" id="myModalLabel">Modal title</h4>
                 </div>
                 <div class="modal-body">
-                    <recipe v-bind:recipe="current_recipe"></recipe>
+                    <input v-model="current_recipe" type="text">
+                    <recipe :recipe="current_recipe"></recipe>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

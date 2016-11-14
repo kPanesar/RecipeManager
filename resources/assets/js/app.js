@@ -21,7 +21,7 @@ Vue.component('recipe', require('./components/Recipe.vue'));
 const recipeVM = new Vue({
     el: '#recipe',
     data: {
-        current_recipe: ""
+        current_recipe: "Hello"
     }
 });
 

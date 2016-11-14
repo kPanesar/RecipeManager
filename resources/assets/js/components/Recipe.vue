@@ -3,7 +3,7 @@
         <div class="col-xs-12">
             <div v-show="!editable">
                 <button class="btn btn-default pull-right" @click="toggleEditable">Edit</button>
-                <h1>{{ recipe.name }}</h1>
+                <h1>{{ my_recipe.name }}</h1>
                 <p>{{ my_recipe.description }}</p>
             </div>
             <form v-show="editable">
@@ -122,11 +122,10 @@
         },
 
         methods: {
-
             fetchData: function( url ) {
                 $.get( url, function( data ) {
-                    console.log(data);
-                    this.my_recipe = data;
+                    this.my_recipe = data.recipe;
+                    console.log(this.my_recipe);
                 });
             },
 
@@ -182,9 +181,7 @@
 
         components: {
             'ingredient'    : require('./Ingredient.vue'),
-            'direction'     : require('./Direction.vue'),
-            'ingredientform': require('./IngredientForm.vue'),
-            'directionform' : require('./DirectionForm.vue')
+            'direction'     : require('./Direction.vue')
         },
 
         computed: {
@@ -194,9 +191,3 @@
         }
     }
 </script>
-
-<style>
-    .no-bullet {
-        list-style-type: none;
-    }
-</style>
