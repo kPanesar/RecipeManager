@@ -3,7 +3,7 @@
         <li class="list-group-item">
             {{ingredient.quantity}} {{ingredient.unit}} {{ingredient.name}}
             <span class="pull-right">
-                <button type="button" class="btn btn-danger" v-on:click="$emit('removeIngredient')">
+                <button type="button" class="btn btn-danger" v-on:click="$emit('removeIngredient')" v-show="editable">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
             </span>
@@ -14,7 +14,7 @@
 <script>
     export default {
 
-        props: ['ingredient'],
+        props: ['ingredient', 'editable'],
 
         mounted() {
         }

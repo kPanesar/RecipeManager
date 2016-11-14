@@ -3,7 +3,7 @@
         <li class="list-group-item">
             {{direction.step_num}} {{direction.direction_text}}
             <span class="pull-right">
-                <button type="button" class="btn btn-danger" v-on:click="$emit('removeDirection')">
+                <button type="button" class="btn btn-danger" v-on:click="$emit('removeDirection')" v-show="editable">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
             </span>
@@ -14,7 +14,7 @@
 <script>
     export default {
 
-        props: ['direction'],
+        props: ['direction', 'editable'],
 
         mounted() {
         }

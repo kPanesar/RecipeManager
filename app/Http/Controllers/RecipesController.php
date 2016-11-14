@@ -94,9 +94,22 @@ class RecipesController extends Controller
         $request = $this->saveFiles($request);
         $recipe = Recipe::findOrFail($id);
         $recipe->update($request->all());
-//
-//        return redirect()->route('recipes.index');
-//
+
+        // Append ingredients
+        $ingredients = $request->get('ingredients');
+        if(is_array($ingredients)) {
+            foreach($ingredients as $ingredient){
+                //$ingredient = Ingredient::create($ingredient);
+                $recipe->ingredients()->update($ingredient);
+            }
+        }
+
+//        // Append directions
+//        $directions = $request->get('directions');
+//        if(is_array($directions)) {
+//            $recipe->directions()->saveMany($directions);
+//        }
+
         return $request->all();
     }
 
