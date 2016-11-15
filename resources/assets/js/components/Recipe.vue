@@ -6,7 +6,7 @@
                 <img src="" alt="Recipe Image">
             </div>
         </div>
-        <div class="modal-body">
+        <div class="modal-body recipe-modal">
             <div v-show="!editable">
                 <button class="btn btn-default pull-right" @click="makeEditable"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
                 <h1>{{ my_recipe.name }}</h1>

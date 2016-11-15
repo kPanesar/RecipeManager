@@ -5,10 +5,10 @@
         <div class="row">
 
             <div class="col-xs-6 col-sm-4 col-md-3">
-                <a href="{{ route('recipes.create') }}" class="btn btn-default create-recipe">
-                    <span class="glyphicon glyphicon-plus text-red" aria-hidden="true"></span>
+                <button class="btn btn-default create-recipe" data-recipe="{{ route('recipes.create') }}" >
+                    <span class="glyphicon glyphicon-plus text-red icon-2x" aria-hidden="true"></span>
                     <p>Create Recipe</p>
-                </a>
+                </button>
             </div>
 
             @if (count($recipes) > 0)

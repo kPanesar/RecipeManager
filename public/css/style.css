@@ -58,6 +58,16 @@ body{
     border-radius: 5px;
 }
 
+.recipe-bullet{
+    border-radius: 50%;
+    width: 15px;
+    height: 15px;
+    background-color: #cf012f;
+    display: inline-block;
+    position: relative;
+    left: 0;
+}
+
 .recipe img{
     zoom: 2;
     display: block;
@@ -72,6 +82,10 @@ body{
     margin-bottom: 0px;
 }
 
+.recipe-modal{
+    padding-left: 30px;
+}
+
 /*Helper Classes*/
 .text-small{
     font-size: 0.95em;
@@ -79,6 +93,15 @@ body{
 
 .text-red{
     color: #cf012f;
+}
+
+.icon-2x{
+    font-size: 1.5em;
+    margin: 20px;
+}
+
+.text-white{
+    color: white;
 }
 
 [v-cloak] { display:none; }
