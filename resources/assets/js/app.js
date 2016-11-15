@@ -21,20 +21,11 @@ Vue.component('recipe', require('./components/Recipe.vue'));
 const recipeVM = new Vue({
     el: '#recipe',
     data: {
-        current_recipe: "Hello"
+        current_recipe: ""
     }
 });
 
 $('#recipeModal').on('show.bs.modal', function (event) {
-    var button = $(event.relatedTarget) // Button that triggered the modal
-    var recipeObject = button.data('recipe') // Extract info from data-* attributes
-    // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-    // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-    // var modal = $(this)
-    // var modal_body = "<recipe :recipe_url=\"" + recipe_url + "\"></recipe>";
-    //
-    // console.log(modal_body);
-    // modal.find('.modal-content').html(modal_body);
-    recipeVM.$data.current_recipe = recipeObject;
-    // console.log(recipe.$data.current_recipe);
-})
+    var button = $(event.relatedTarget); // Button that triggered the modal
+    recipeVM.$data.current_recipe = button.data('recipe');
+});

@@ -1,7 +1,7 @@
 <template>
     <div>
         <li>
-            {{ingredient.quantity}} {{ingredient.unit}} {{ingredient.name}}
+            <strong>{{ingredient.quantity}} {{ingredient.unit}}</strong> {{ingredient.name}}
             <span class="glyphicon glyphicon-remove" v-on:click="$emit('removeIngredient')" v-show="editable"></span>
         </li>
     </div>

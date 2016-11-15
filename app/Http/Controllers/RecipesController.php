@@ -100,7 +100,7 @@ class RecipesController extends Controller
         if(is_array($ingredients)) {
             foreach($ingredients as $ingredient){
                 //$ingredient = Ingredient::create($ingredient);
-                $recipe->ingredients()->update($ingredient);
+                $recipe->ingredients()->detach();
             }
         }
 

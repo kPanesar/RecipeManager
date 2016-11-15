@@ -7,6 +7,10 @@ h1, h2, h3, h4, h5, h6{
     color: #cf012f !important;
 }
 
+body{
+    color: #550622;;
+}
+
 .navbar-default {
     margin-bottom: 0px;
 }
@@ -76,3 +80,5 @@ h1, h2, h3, h4, h5, h6{
 .text-red{
     color: #cf012f;
 }
+
+[v-cloak] { display:none; }

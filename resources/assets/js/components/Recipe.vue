@@ -1,8 +1,14 @@
 <template>
-    <div class="row">
-        <div class="col-xs-12">
+    <div>
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <div>
+                <img src="" alt="Recipe Image">
+            </div>
+        </div>
+        <div class="modal-body">
             <div v-show="!editable">
-                <button class="btn btn-default pull-right" @click="toggleEditable">Edit</button>
+                <button class="btn btn-default pull-right" @click="makeEditable"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
                 <h1>{{ my_recipe.name }}</h1>
                 <p>{{ my_recipe.description }}</p>
             </div>
@@ -10,6 +16,7 @@
                 <div class="form-group">
                     <label for="name">Name</label>
                     <input id="name"  v-model="my_recipe.name" class="form-control">
+                    <span class="bar"></span>
                 </div>
                 <div class="form-group">
                     <label for="description">Description</label>
@@ -50,13 +57,15 @@
                 <br>
             </form>
 
-            <ul>
+            <ul class="list-unstyled">
                 <ingredient v-for="(ingredient, index) in my_recipe.ingredients"
                             :ingredient="ingredient"
                             :editable="editable"
                             v-on:removeIngredient="my_recipe.ingredients.splice(index, 1)"
                 ></ingredient>
             </ul>
+
+            <br>
 
             <h4>Directions</h4>
             <form class="form-inline" v-show="editable">
@@ -88,13 +97,41 @@
                            v-on:removeDirection="my_recipe.directions.splice(index, 1)"
                 ></direction>
             </ul>
-
-            <button class="btn  btn-success" @click="updateRecipe" v-show="editable">Update</button>
+        </div>
+        <div class="modal-footer">
+            <transition name="fade">
+                <button type="button" class="btn btn-success" @click="updateRecipe" v-show="editable">Save Changes</button>
+            </transition>
+            <button type="button" class="btn btn-default" @click="cancelChanges" v-show="editable">Cancel</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" v-show="!editable">Close</button>
         </div>
     </div>
 </template>
 
 <script>
+
+    // ----- Helper variables and functions ----- //
+    var temp_recipe;
+
+    function clone(obj){
+        if(obj == null || typeof(obj) != 'object')
+            return obj;
+
+        var temp = new obj.constructor();
+        for(var key in obj)
+            temp[key] = clone(obj[key]);
+
+        return temp;
+    }
+
+    function renumberList(list) {
+        for(var index in list){
+            list[index].step_num = (parseInt(index) + 1).toString();
+        }
+        return list;
+    }
+    // ----- End Helper variables and functions ----- //
+
     export default{
         props: ['recipe'],
 
@@ -112,21 +149,31 @@
                         step_num        : null,
                         direction_text  : ''
                     },
-                my_recipe               : this.recipe,
+                my_recipe : {
+                                name: "Still Cookin'",
+                                description: "Your recipe is cooking. Please wait."
+                            }, //Message to display while fetching data
                 editable: false
             }
         },
 
         mounted() {
-            this.fetchData('/RecipeManager/public/recipes/1');
+
+        },
+
+        watch: {
+            recipe: function (newVal) {
+                this.fetchData(newVal);
+            }
         },
 
         methods: {
+
             fetchData: function( url ) {
-                $.get( url, function( data ) {
+                $.getJSON( url, function( data ) {
                     this.my_recipe = data.recipe;
-                    console.log(this.my_recipe);
-                });
+                }.bind(this));
+
             },
 
             changeName: function (e) {
@@ -156,38 +203,59 @@
                     }
             },
 
-            updateRecipe: function(item) {
-                var recipe_id = this.my_recipe.id;
-                this.toggleEditable();
+            updateRecipe: function() {
+                $.ajax({
+                    type:"PUT",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: this.recipe,
+                    data: this.my_recipe,
+                    success: function(data) {
+                        alert('Recipe saved');
+                    }
+                });
 
-//                $.ajax({
-//                    type:"PUT",
-//                    headers: {
-//                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//                    },
-//                    url: '/recipes/' + recipe_id,
-//                    url: '/RecipeManager/public/recipes/1',
-//                    data: this.my_recipe,
-//                    success: function(data) {
-//                        alert('Recipe saved');
-//                    }
-//                });
+                // Return to view Mode
+                this.editable = false;
             },
 
-            toggleEditable: function () {
-                this.editable = !this.editable;
+            cancelChanges: function(){
+                // Rollback changes to the original state
+                this.my_recipe = temp_recipe;
+
+                this.editable = false;
+            },
+
+            makeEditable: function () {
+                // Save recipe state in case the changes need to be cancelled
+                temp_recipe = clone(this.my_recipe);
+
+                this.editable = true;
             }
         },
 
+        // Order the directions by step number
+        computed: {
+            orderedDirections: function () {
+                return renumberList(_.orderBy(this.my_recipe.directions, 'step_num'));
+            }
+        },
+
+        // Register the components locally
         components: {
             'ingredient'    : require('./Ingredient.vue'),
             'direction'     : require('./Direction.vue')
-        },
-
-        computed: {
-            orderedDirections: function () {
-                return _.orderBy(this.my_recipe.directions, 'step_num')
-            }
         }
     }
+
 </script>
+
+<style>
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s
+    }
+    .fade-enter, .fade-leave-active {
+        opacity: 0
+    }
+</style>
