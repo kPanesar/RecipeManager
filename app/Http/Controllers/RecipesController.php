@@ -97,11 +97,15 @@ class RecipesController extends Controller
 
         // Append ingredients
         $ingredients = $request->get('ingredients');
+        $directions = $request->get('directions');
+
         if(is_array($ingredients)) {
             foreach($ingredients as $ingredient){
-                //$ingredient = Ingredient::create($ingredient);
-                $recipe->ingredients()->detach();
+                
             }
+        }
+        else{
+
         }
 
 //        // Append directions
