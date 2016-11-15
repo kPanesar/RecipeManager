@@ -1,102 +1,105 @@
 <template>
     <div>
         <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <div>
-                <img src="" alt="Recipe Image">
-            </div>
+            <img v-bind:src="imageUrl" alt="Recipe Image" class="recipe-img">
         </div>
         <div class="modal-body recipe-modal">
-            <div v-show="!editable">
-                <button class="btn btn-default pull-right" @click="makeEditable"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
-                <h1>{{ my_recipe.name }}</h1>
-                <p>{{ my_recipe.description }}</p>
+            <div class="row">
+                <div class="col-xs-12">
+                    <div v-show="!editable">
+                        <button class="btn btn-default pull-right" @click="makeEditable"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></button>
+                        <h1>{{ my_recipe.name }}</h1>
+                        <p>{{ my_recipe.description }}</p>
+                    </div>
+                    <form v-show="editable">
+                        <div class="form-group">
+                            <label for="name" class="sr-only">Name</label>
+                            <input id="name"  v-model="my_recipe.name" class="form-control form-title" placeholder="Recipe Name">
+                            <span class="bar"></span>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="sr-only">Description</label>
+                            <textarea id="description"  v-model="my_recipe.description" class="form-control" placeholder="Recipe Description"></textarea>
+                        </div>
+                        <div>
+                            <input type="file" v-on:change="changeName">
+                        </div>
+                    </form>
+                </div>
             </div>
-            <form v-show="editable">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input id="name"  v-model="my_recipe.name" class="form-control">
-                    <span class="bar"></span>
-                </div>
-                <div class="form-group">
-                    <label for="description">Description</label>
-                    <textarea id="description"  v-model="my_recipe.description" class="form-control"></textarea>
-                </div>
-                <div>
-                    <input type="file" v-on:change="changeName">
-                </div>
-            </form>
-            <br>
-            <h4>Ingredients</h4>
-            <form class="form-inline" v-show="editable">
-                <div class="form-group">
-                    <label for="quantity" class="sr-only">Quantity</label>
-                    <input id="quantity"
-                           type="number"
-                           v-model="new_ingredient.quantity"
-                           class="form-control"
-                           placeholder="Quantity">
-                </div>
-                <div class="form-group">
-                    <label for="unit" class="sr-only">Unit</label>
-                    <input id="unit"
-                           type="text"
-                           v-model="new_ingredient.unit"
-                           class="form-control"
-                           placeholder="Unit">
-                </div>
-                <div class="form-group">
-                    <label for="ingredient-name" class="sr-only">Name</label>
-                    <input id="ingredient-name"
-                           type="text"
-                           v-model="new_ingredient.name"
-                           class="form-control"
-                           placeholder="Ingredient">
-                </div>
-                <button class="btn btn-default" @click="addIngredient">Add Ingredient</button>
-                <br>
-            </form>
+            <div class="row">
+                <div class="col-sm-4">
+                    <h2>Ingredients</h2>
+                    <form class="form-inline" v-show="editable">
+                        <div class="form-group">
+                            <label for="quantity" class="sr-only">Quantity</label>
+                            <input id="quantity"
+                                   type="number"
+                                   v-model="new_ingredient.quantity"
+                                   class="form-control"
+                                   placeholder="Quantity">
+                        </div>
+                        <div class="form-group">
+                            <label for="unit" class="sr-only">Unit</label>
+                            <input id="unit"
+                                   type="text"
+                                   v-model="new_ingredient.unit"
+                                   class="form-control"
+                                   placeholder="Unit">
+                        </div>
+                        <div class="form-group">
+                            <label for="ingredient-name" class="sr-only">Name</label>
+                            <input id="ingredient-name"
+                                   type="text"
+                                   v-model="new_ingredient.name"
+                                   class="form-control"
+                                   placeholder="Ingredient">
+                        </div>
+                        <button class="btn btn-primary" @click="addIngredient"><span class="glyphicon glyphicon-plus"></span></button>
+                        <br>
+                    </form>
 
-            <ul class="list-unstyled">
-                <ingredient v-for="(ingredient, index) in my_recipe.ingredients"
-                            :ingredient="ingredient"
-                            :editable="editable"
-                            v-on:removeIngredient="my_recipe.ingredients.splice(index, 1)"
-                ></ingredient>
-            </ul>
-
-            <br>
-
-            <h4>Directions</h4>
-            <form class="form-inline" v-show="editable">
-                <div class="form-group">
-                    <label for="step-num" class="sr-only">Step Number</label>
-                    <input id="step-num"
-                           type="number"
-                           v-model="new_direction.step_num"
-                           class="form-control"
-                           placeholder="Step Number">
+                    <ul class="list-unstyled">
+                        <ingredient v-for="(ingredient, index) in my_recipe.ingredients"
+                                    :ingredient="ingredient"
+                                    :editable="editable"
+                                    v-on:removeIngredient="my_recipe.ingredients.splice(index, 1)"
+                        ></ingredient>
+                    </ul>
                 </div>
-                <div class="form-group">
-                    <label for="direction-text" class="sr-only">Direction</label>
-                    <input id="direction-text"
-                           type="text"
-                           v-model="new_direction.direction_text"
-                           class="form-control"
-                           placeholder="Direction">
-                </div>
-                <button class="btn btn-default" @click="addDirection">Add Direction</button>
-                <br>
-            </form>
+                <div class="col-sm-8">
+                    <h2>Directions</h2>
+                    <form class="form-inline" v-show="editable">
+                        <div class="form-group">
+                            <label for="step-num" class="sr-only">Step Number</label>
+                            <input id="step-num"
+                                   type="number"
+                                   v-model="new_direction.step_num"
+                                   class="form-control"
+                                   placeholder="Step Number">
+                        </div>
+                        <div class="form-group">
+                            <label for="direction-text" class="sr-only">Direction</label>
+                            <input id="direction-text"
+                                   type="text"
+                                   v-model="new_direction.direction_text"
+                                   class="form-control"
+                                   placeholder="Direction">
+                        </div>
+                        <button class="btn btn-primary" @click="addDirection"><span class="glyphicon glyphicon-plus"></span></button>
+                        <br>
+                    </form>
 
-            <ul class="list-unstyled">
-                <direction v-for="(direction, index) in orderedDirections"
-                           :key="direction.step_num"
-                           :direction="direction"
-                           :editable="editable"
-                           v-on:removeDirection="my_recipe.directions.splice(index, 1)"
-                ></direction>
-            </ul>
+                    <ol class="rounded-list">
+                        <direction v-for="(direction, index) in orderedDirections"
+                                   :key="direction.step_num"
+                                   :direction="direction"
+                                   :editable="editable"
+                                   v-on:removeDirection="my_recipe.directions.splice(index, 1)"
+                        ></direction>
+                    </ol>
+                </div>
+            </div>
         </div>
         <div class="modal-footer">
             <transition name="fade">
@@ -239,6 +242,10 @@
         computed: {
             orderedDirections: function () {
                 return renumberList(_.orderBy(this.my_recipe.directions, 'step_num'));
+            },
+
+            imageUrl: function () {
+                return 'images/red-cake.jpg';
             }
         },
 
@@ -258,4 +265,14 @@
     .fade-enter, .fade-leave-active {
         opacity: 0
     }
+
+
+    ul, ol{
+        margin-top: 15px;
+    }
+    ol{
+        margin-left: -25px;
+    }
+
+
 </style>

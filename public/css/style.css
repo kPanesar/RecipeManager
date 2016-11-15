@@ -6,6 +6,9 @@ html *{
 h1, h2, h3, h4, h5, h6{
     color: #cf012f !important;
 }
+h1{
+    font-weight: 900;
+}
 
 body{
     color: #550622;;
@@ -17,7 +20,11 @@ body{
 
 .jumbotron{
     background-color: white;
-    height: 500px;
+    /*height: 500px;*/
+}
+
+.header-image{
+    max-height: 450px;
 }
 
 .list-group-item {
@@ -65,7 +72,9 @@ body{
     background-color: #cf012f;
     display: inline-block;
     position: relative;
-    left: 0;
+    left: 8px;
+    top: 3px;
+    z-index: 0;
 }
 
 .recipe img{
@@ -83,10 +92,63 @@ body{
 }
 
 .recipe-modal{
-    padding-left: 30px;
+    padding-left: 40px;
 }
 
-/*Helper Classes*/
+.modal-header{
+    padding: 0;
+    max-height: 300px;
+    overflow: hidden;
+}
+
+.recipe-img{
+    height: auto;
+    position: relative;
+    top: -200px;
+}
+
+/*Button Styles*/
+.btn-primary, .btn-primary:visited{
+    background-color: #cf012f;
+    border: none;
+    color: white;
+}
+.btn-primary:hover,
+.btn-primary:active{
+    background-color: #e2012f;
+    border: none;
+}
+.btn-primary:active:focus{
+    background-color: #b9012f;
+    border: none;
+}
+.btn-primary.disabled:hover,
+.btn-primary.disabled.focus{
+    background-color: #ff244f;
+    border: none;
+}
+
+/*Link Styles*/
+a, .btn-link{
+    color: #cf012f;
+}
+a:hover,
+.btn-link:hover{
+    color: #e2012f;
+}
+a:visited,
+.btn-link:visited{
+    color: #b9012f;
+}
+
+/*Navbar Style*/
+.navbar-default{
+    background: none;;
+}
+
+/*----------------------------------------*/
+/* ===========  Helper Classes ========== */
+/*----------------------------------------*/
 .text-small{
     font-size: 0.95em;
 }
@@ -95,13 +157,35 @@ body{
     color: #cf012f;
 }
 
+.text-white{
+    color: white;
+}
+
+.text-gray{
+    color: #cccccc;
+}
+
+.text-caption{
+    font-size: 0.7em;
+    margin: 5px;
+}
+
+.text-thin{
+    font-weight: 500;
+}
+
 .icon-2x{
     font-size: 1.5em;
     margin: 20px;
 }
 
-.text-white{
-    color: white;
+.no-space {
+    padding: 0;
+    margin: 0;
+}
+
+.margin-top-lg{
+    margin-top: 50px;
 }
 
 [v-cloak] { display:none; }

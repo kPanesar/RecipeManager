@@ -1,10 +1,8 @@
 <template>
-    <div>
-        <li>
-            <strong>{{ingredient.quantity}} {{ingredient.unit}}</strong> {{ingredient.name}}
-            <span class="glyphicon glyphicon-remove" v-on:click="$emit('removeIngredient')" v-show="editable"></span>
-        </li>
-    </div>
+    <li>
+        <strong>{{ingredient.quantity}} {{ingredient.unit}}</strong> {{ingredient.name}}
+        <span class="glyphicon glyphicon-remove" v-on:click="$emit('removeIngredient')" v-show="editable"></span>
+    </li>
 </template>
 
 <script>

@@ -36,7 +36,7 @@
 
                     <!-- Left Side Of Navbar -->
                     <ul class="nav navbar-nav">
-                        <li><a href="{{ url('recipes') }}">My Recipes</a></li>
+                        <li><a href="{{ url('recipes') }}" >My Recipes</a></li>
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
