@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Direction;
 use App\Http\Requests\StoreRecipesRequest;
 use App\Http\Requests\UpdateRecipesRequest;
 use Illuminate\Http\Request;
@@ -98,22 +99,28 @@ class RecipesController extends Controller
         // Update Ingredients
         $ingredients = $request->get('ingredients');
 
-        // Update Directions
-        $directions = $request->get('directions');
-
         if(is_array($ingredients)) {
             //Delete all current ingredients
             Ingredient::where('recipe_id', $recipe->id)->delete();
-            $recipe->ingredients()->saveMany($ingredients);
+            foreach ($ingredients as $ingredient){
+                $new_ingredient = new Ingredient($ingredient);
+                $recipe->ingredients()->save($new_ingredient);
+            }
         }
 
-//        // Append directions
-//        $directions = $request->get('directions');
-//        if(is_array($directions)) {
-//            $recipe->directions()->saveMany($directions);
-//        }
+        // Update Directions
+        $directions = $request->get('directions');
 
-        return $request->all();
+        if(is_array($directions)) {
+            //Delete all current ingredients
+            Direction::where('recipe_id', $recipe->id)->delete();
+            foreach ($directions as $direction){
+                $new_direction = new Direction($direction);
+                $recipe->directions()->save($new_direction);
+            }
+        }
+
+        return 'Save Successful.';
     }
 
     /**

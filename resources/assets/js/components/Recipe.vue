@@ -164,10 +164,6 @@
                         step_num        : null,
                         direction_text  : ''
                     },
-//                my_recipe : {
-//                                name: "Still Cookin'",
-//                                description: "Your recipe is cooking. Please wait."
-//                            }, //Message to display while fetching data
                 my_recipe: {
                         name: '',
                         description: '',
