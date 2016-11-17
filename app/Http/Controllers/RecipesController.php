@@ -129,8 +129,7 @@ class RecipesController extends Controller
             }
         }
 
-//        return 'Save Successful.';
-        return $request;
+        return 'Save Successful.';
     }
 
     /**
