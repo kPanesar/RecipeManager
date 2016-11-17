@@ -1,7 +1,8 @@
 <template>
     <div>
         <div class="modal-header">
-            <img v-bind:src="imageUrl" alt="Recipe Image" class="recipe-img">
+            <img v-bind:src="imageUrl" v-if="my_recipe.photo" alt="Recipe Image" class="recipe-img">
+            <!--<img :src="image" />-->
         </div>
         <div class="modal-body recipe-modal">
             <div class="row">
@@ -22,7 +23,7 @@
                             <textarea id="description"  v-model="my_recipe.description" class="form-control" placeholder="Recipe Description"></textarea>
                         </div>
                         <div>
-                            <input type="file" v-on:change="changeName">
+                            <input type="file" v-on:change="saveImage">
                         </div>
                     </form>
                 </div>
@@ -133,6 +134,16 @@
         }
         return list;
     }
+
+    function createImage(file) {
+        var image = new Image();
+        var reader = new FileReader();
+
+        reader.onload = (e) => {
+            image = e.target.result;
+        }
+        return image;
+    }
     // ----- End Helper variables and functions ----- //
 
     export default{
@@ -145,7 +156,7 @@
                         quantity    : null,
                         unit        : '',
                         name        : '',
-                        recipe_id   : null
+                        recipe_id   : ''
                     },
                 new_direction:
                     {
@@ -156,12 +167,12 @@
                                 name: "Still Cookin'",
                                 description: "Your recipe is cooking. Please wait."
                             }, //Message to display while fetching data
-                editable: false
+                editable: false,
+                image: null
             }
         },
 
         mounted() {
-
         },
 
         watch: {
@@ -179,8 +190,12 @@
 
             },
 
-            changeName: function (e) {
-                this.my_recipe.photo = e.target;
+            saveImage: function (e) {
+                var files = e.target.files;
+
+                if (files.length > 0){
+                    this.image = createImage(files[0]);
+                }
             },
 
             addIngredient: function (e) {
@@ -245,7 +260,7 @@
             },
 
             imageUrl: function () {
-                return 'images/red-cake.jpg';
+                return ('uploads/' + this.my_recipe.photo) ;
             }
         },
 

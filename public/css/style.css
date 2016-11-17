@@ -103,6 +103,7 @@ body{
 
 .recipe-img{
     height: auto;
+    width: 100%;
     position: relative;
     top: -200px;
 }

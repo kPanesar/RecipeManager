@@ -95,17 +95,16 @@ class RecipesController extends Controller
         $recipe = Recipe::findOrFail($id);
         $recipe->update($request->all());
 
-        // Append ingredients
+        // Update Ingredients
         $ingredients = $request->get('ingredients');
+
+        // Update Directions
         $directions = $request->get('directions');
 
         if(is_array($ingredients)) {
-            foreach($ingredients as $ingredient){
-                
-            }
-        }
-        else{
-
+            //Delete all current ingredients
+            Ingredient::where('recipe_id', $recipe->id)->delete();
+            $recipe->ingredients()->saveMany($ingredients);
         }
 
 //        // Append directions
