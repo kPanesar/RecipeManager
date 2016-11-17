@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Direction;
+use App\Http\Requests\DeleteRecipesRequest;
 use App\Http\Requests\StoreRecipesRequest;
 use App\Http\Requests\UpdateRecipesRequest;
 use Illuminate\Http\Request;
@@ -49,19 +50,27 @@ class RecipesController extends Controller
         //$request = $this->saveFiles($request);
         $recipe = Recipe::create($request->all());
 
-        // Append ingredients
+        // Update Ingredients
         $ingredients = $request->get('ingredients');
+
         if(is_array($ingredients)) {
-            $recipe->ingredients()->saveMany($ingredients);
+            foreach ($ingredients as $ingredient){
+                $new_ingredient = new Ingredient($ingredient);
+                $recipe->ingredients()->save($new_ingredient);
+            }
         }
 
-        // Append directions
+        // Update Directions
         $directions = $request->get('directions');
+
         if(is_array($directions)) {
-            $recipe->directions()->saveMany($directions);
+            foreach ($directions as $direction){
+                $new_direction = new Direction($direction);
+                $recipe->directions()->save($new_direction);
+            }
         }
 
-        return redirect()->route('recipes.index');
+        return 'Store Successful.';
     }
 
     /**
@@ -126,18 +135,29 @@ class RecipesController extends Controller
     /**
      * Remove Recipe from storage.
      *
+     * @param  \App\Http\Requests\DeleteRecipesRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(DeleteRecipesRequest $request, $id)
     {
         $recipe = Recipe::findOrFail($id);
 
-        //Only delete if recipe exists
-        if(!empty($recipe)){
-            $recipe->delete();
+        //Only delete if it exists
+        if(!empty($recipe)) $recipe->delete();
+
+        // Delete Ingredients
+        $ingredients = $request->get('ingredients');
+        if(is_array($ingredients)) {
+            Ingredient::where('recipe_id', $recipe->id)->delete();
         }
 
-        return redirect()->route('recipes.index');
+        // Delete Directions
+        $directions = $request->get('directions');
+        if(is_array($directions)) {
+            Direction::where('recipe_id', $recipe->id)->delete();
+        }
+
+        return 'Delete Successful.';
     }
 }

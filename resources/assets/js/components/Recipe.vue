@@ -103,12 +103,13 @@
             </div>
         </div>
         <div class="modal-footer">
+            <button type="button" class="btn btn-danger pull-left" @click="destroyRecipe" data-dismiss="modal" v-show="editable">Delete</button>
             <transition name="fade">
                 <button type="button" class="btn btn-success" @click="updateRecipe" v-show="showForm">Save Changes</button>
             </transition>
             <button type="button" class="btn btn-default" @click="cancelChanges" v-show="editable">Cancel</button>
             <button type="button" class="btn btn-default" data-dismiss="modal" v-show="!showForm">Close</button>
-            <button type="button" class="btn btn-default" @click="clearRecipe" data-dismiss="modal" v-show="createMode">Cancel</button>
+            <button type="button" class="btn btn-default" @click="clearRecipe" data-dismiss="modal" v-show="create_mode">Cancel</button>
         </div>
     </div>
 </template>
@@ -171,6 +172,7 @@
                         directions: []
                     },
                 editable: false,
+                create_mode: false,
                 image: null
             }
         },
@@ -181,7 +183,8 @@
         watch: {
             recipe: function (newVal) {
                 this.clearRecipe();
-                if(!this.createMode){
+                this.create_mode = this.isCreateMode();
+                if(!this.create_mode){
                     this.fetchData(newVal);
                 }
             }
@@ -207,6 +210,7 @@
             addIngredient: function (e) {
                 e.preventDefault();
                 this.new_ingredient.recipe_id =  this.my_recipe.id;
+                this.new_ingredient.quantity = parseInt(this.new_ingredient.quantity); //Convert quantity to a number
                 this.my_recipe.ingredients.push(this.new_ingredient);
                 this.new_ingredient =
                     {
@@ -219,7 +223,12 @@
 
             addDirection: function (e) {
                 e.preventDefault();
-                this.my_recipe.directions.push(this.new_direction);
+                // Only add the direction if it contains text
+                if(this.new_direction.direction_text != ''){
+                    this.my_recipe.directions.push(this.new_direction);
+                }
+
+                // Reset the direction variable
                 this.new_direction =
                     {
                         step_num        : null,
@@ -229,19 +238,35 @@
 
             updateRecipe: function() {
                 $.ajax({
-                    type:"PUT",
+                    type: this.requestType,
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     url: this.recipe,
                     data: this.my_recipe,
                     success: function(data) {
-                        alert('Recipe saved');
+                        // Celebrations!
                     }
                 });
 
                 // Return to view Mode
-                this.editable = false;
+                this.editable = this.create_mode = false;
+            },
+
+            destroyRecipe: function() {
+                $.ajax({
+                    type: 'DELETE',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: this.recipe,
+                    data: this.my_recipe,
+                    success: function(data) {
+                        // Celebrations!
+                    }
+                });
+
+                this.clearRecipe();
             },
 
             cancelChanges: function(){
@@ -265,7 +290,13 @@
                 temp_recipe = clone(this.my_recipe);
 
                 this.editable = true;
-            }
+            },
+
+            isCreateMode: function () {
+                var last = this.recipe.length;
+                var substring = this.recipe.substring(last-7, last);
+                return (substring == 'recipes');
+            },
         },
 
         // Order the directions by step number
@@ -278,14 +309,13 @@
                 return ('uploads/' + this.my_recipe.photo) ;
             },
 
-            createMode: function () {
-                var last = this.recipe.length;
-                var substring = this.recipe.substring(last-6, last);
-                return (substring == 'create');
+            showForm: function () {
+                return (this.editable || this.create_mode);
             },
 
-            showForm: function () {
-                return (this.editable || this.createMode);
+            requestType: function () {
+                if(this.create_mode) return 'POST';
+                else return 'PUT';
             }
         },
 

@@ -5,7 +5,7 @@
         <div class="row">
 
             <div class="col-xs-6 col-sm-4 col-md-3">
-                <button class="btn btn-default create-recipe" data-toggle="modal" data-target="#recipeModal" data-recipe="{{ route('recipes.create') }}">
+                <button class="btn btn-default create-recipe" data-toggle="modal" data-target="#recipeModal" data-recipe="{{ route('recipes.index') }}">
                     <span class="glyphicon glyphicon-plus text-red icon-2x" aria-hidden="true"></span>
                     <p>Create Recipe</p>
                 </button>
