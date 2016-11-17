@@ -47,7 +47,7 @@ class RecipesController extends Controller
      */
     public function store(StoreRecipesRequest $request)
     {
-        //$request = $this->saveFiles($request);
+        $request = $this->saveFiles($request);
         $recipe = Recipe::create($request->all());
 
         // Update Ingredients
@@ -129,7 +129,8 @@ class RecipesController extends Controller
             }
         }
 
-        return 'Save Successful.';
+//        return 'Save Successful.';
+        return $request;
     }
 
     /**

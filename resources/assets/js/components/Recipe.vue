@@ -169,7 +169,8 @@
                         name: '',
                         description: '',
                         ingredients: [],
-                        directions: []
+                        directions: [],
+                        files: null
                     },
                 editable: false,
                 create_mode: false,
@@ -201,10 +202,13 @@
 
             saveImage: function (e) {
                 var files = e.target.files;
+                console.log(files);
 
                 if (files.length > 0){
-                    this.image = createImage(files[0]);
+                    this.image = files[0];
                 }
+
+                this.testAjax();
             },
 
             addIngredient: function (e) {
@@ -237,6 +241,7 @@
             },
 
             updateRecipe: function() {
+
                 $.ajax({
                     type: this.requestType,
                     headers: {
@@ -246,6 +251,49 @@
                     data: this.my_recipe,
                     success: function(data) {
                         // Celebrations!
+                    }
+                });
+
+                // Return to view Mode
+                this.editable = this.create_mode = false;
+            },
+
+            testAjax: function() {
+
+//                $.ajax({
+//                    type: this.requestType,
+//                    headers: {
+//                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+//                    },
+//                    url: this.recipe,
+//                    data: this.image,
+//                    success: function(data) {
+//                        // Celebrations!
+//                    }
+//                });
+
+                var formData = new FormData();
+                formData.append('image', this.image);
+                formData.append('name', 'Karan');
+                console.log(formData);
+
+                $.ajax({
+                    type:'PUT',
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    url: this.recipe,
+                    data:formData,
+                    cache:false,
+                    contentType: false,
+                    processData: false,
+                    success:function(data){
+                        console.log("success");
+                        console.log(data);
+                    },
+                    error: function(data){
+                        console.log("error");
+                        console.log(data);
                     }
                 });
 
@@ -281,7 +329,8 @@
                                     name: '',
                                     description: '',
                                     ingredients: [],
-                                    directions: []
+                                    directions: [],
+                                    files: null
                                  }
             },
 
