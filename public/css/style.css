@@ -263,6 +263,10 @@ input[type="color"]:focus,
     font-weight: 500;
 }
 
+.text-brown{
+    color: #550622;
+}
+
 .icon-2x{
     font-size: 1.5em;
     margin: 20px;

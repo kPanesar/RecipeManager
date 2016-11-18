@@ -24,6 +24,9 @@
 	</div>
 
 	<div class="row dashboard">
+		<div class="circle-pattern">
+
+		</div>
 		<h2 class="text-center">One dashboard, for all your recipes.</h2>
 		<p class="text-center">The dashboard provides an overview of all your recipes at a glance and lets you browse them easily.</p>
 		<div class="row">

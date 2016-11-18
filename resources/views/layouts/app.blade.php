@@ -27,11 +27,11 @@
                 @if(Auth::check())
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('recipes') }}">
-                        <span class="text-red">Recipe Manager</span>
+                        <span class="text-brown">Recipe Manager</span>
                     </a>
                 @else
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        <span class="text-red">Recipe Manager</span>
+                        <span class="text-brown">Recipe Manager</span>
                     </a>
                 @endif
 
