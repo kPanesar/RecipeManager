@@ -29,3 +29,7 @@ $('#recipeModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget); // Button that triggered the modal
     recipeVM.$data.current_recipe = button.data('recipe');
 });
+
+$('#recipeModal').on('hidden.bs.modal', function () {
+    //Update the recipes on modal close
+})

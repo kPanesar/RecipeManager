@@ -40,7 +40,7 @@
                     </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="">Hello User!</a></li>
+                        <li><a href="">Hello {{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}!</a></li>
                         <li>
                             <a href="{{ url('/logout') }}"
                                onclick="event.preventDefault();

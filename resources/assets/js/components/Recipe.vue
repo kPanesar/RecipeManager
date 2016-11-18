@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="modal-header" v-if="my_recipe.photo">
-            <img v-bind:src="imageUrl" alt="Recipe Image" class="recipe-img">
+            <img v-bind:src="image_url" alt="Recipe Image" class="recipe-img">
             <!--<img :src="image" />-->
         </div>
         <div class="modal-body recipe-modal">
@@ -163,12 +163,10 @@
             contentType: false,
             processData: false,
             success:function(data){
-                console.log(file);
-                console.log('Success in Uploading');
+                //Celebrations!
             },
             error: function(data){
-                console.log("The POST request has failed.");
-                console.log(data);
+                console.log("Ah snap. Something went wrong.");
             }
         });
     }
@@ -201,7 +199,7 @@
                 editable: false,
                 create_mode: false,
                 image: null,
-                uploaded: false
+                image_url: ''
             }
         },
 
@@ -223,8 +221,8 @@
             fetchData: function( url ) {
                 $.getJSON( url, function( data ) {
                     this.my_recipe = data.recipe;
+                    this.image_url = ('uploads/' + this.my_recipe.photo);
                 }.bind(this));
-
             },
 
             grabImage: function (e) {
@@ -233,6 +231,8 @@
                 if (files.length > 0){
                     this.image = files[0];
                 }
+
+                this.image_url = URL.createObjectURL(this.image);
             },
 
             addIngredient: function (e) {
@@ -269,8 +269,9 @@
                 //Update the recipe photo and upload it to the server
                 if(this.image){
                     this.my_recipe.photo = this.image.name;
+                    uplodadFile(this.image);
+                    this.uploaded = true;
                 }
-                uplodadFile(this.image);
 
                 $.ajax({
                     type: this.requestType,
@@ -307,6 +308,7 @@
             cancelChanges: function(){
                 // Rollback changes to the original state
                 this.my_recipe = temp_recipe;
+                this.image_url = ('uploads/' + this.my_recipe.photo);
                 this.image = null;
 
                 this.editable = false;
@@ -340,10 +342,6 @@
         computed: {
             orderedDirections: function () {
                 return renumberList(_.orderBy(this.my_recipe.directions, 'step_num'));
-            },
-
-            imageUrl: function () {
-                return ('uploads/' + this.my_recipe.photo) ;
             },
 
             showForm: function () {

@@ -20,7 +20,7 @@
                                 @if($recipe->photo != '')
                                     <img src="{{ asset('uploads/'.$recipe->photo) }}">
                                 @else
-                                    <img src="{{asset('images/red-cake.jpg')}}" alt="Red Cake">
+                                    <img src="{{asset('images/bowl.png')}}" class="img-responsive" alt="Red Cake">
                                 @endif
                             </div>
                             <h3 class="text-left">{{$recipe->name}}</h3>
