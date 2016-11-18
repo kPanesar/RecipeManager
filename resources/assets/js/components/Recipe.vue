@@ -23,7 +23,7 @@
                             <textarea id="description"  v-model="my_recipe.description" class="form-control" placeholder="Recipe Description"></textarea>
                         </div>
                         <div>
-                            <input type="file" v-on:change="saveImage">
+                            <input type="file" v-on:change="grabImage">
                         </div>
                     </form>
                 </div>
@@ -146,6 +146,32 @@
         }
         return image;
     }
+
+    function uplodadFile(file) {
+
+        var formData = new FormData();
+        formData.append('file', file);
+
+        $.ajax({
+            type:'POST',
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            url: 'recipes/photos',
+            data:formData,
+            cache:false,
+            contentType: false,
+            processData: false,
+            success:function(data){
+                console.log(file);
+                console.log('Success in Uploading');
+            },
+            error: function(data){
+                console.log("The POST request has failed.");
+                console.log(data);
+            }
+        });
+    }
     // ----- End Helper variables and functions ----- //
 
     export default{
@@ -174,7 +200,8 @@
                     },
                 editable: false,
                 create_mode: false,
-                image: null
+                image: null,
+                uploaded: false
             }
         },
 
@@ -200,15 +227,12 @@
 
             },
 
-            saveImage: function (e) {
+            grabImage: function (e) {
                 var files = e.target.files;
-                console.log(files);
 
                 if (files.length > 0){
                     this.image = files[0];
                 }
-
-                this.testAjax();
             },
 
             addIngredient: function (e) {
@@ -242,6 +266,12 @@
 
             updateRecipe: function() {
 
+                //Update the recipe photo and upload it to the server
+                if(this.image){
+                    this.my_recipe.photo = this.image.name;
+                }
+                uplodadFile(this.image);
+
                 $.ajax({
                     type: this.requestType,
                     headers: {
@@ -251,49 +281,6 @@
                     data: this.my_recipe,
                     success: function(data) {
                         // Celebrations!
-                    }
-                });
-
-                // Return to view Mode
-                this.editable = this.create_mode = false;
-            },
-
-            testAjax: function() {
-
-//                $.ajax({
-//                    type: this.requestType,
-//                    headers: {
-//                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-//                    },
-//                    url: this.recipe,
-//                    data: this.image,
-//                    success: function(data) {
-//                        // Celebrations!
-//                    }
-//                });
-
-                var formData = new FormData();
-                formData.append('image', this.image);
-                formData.append('name', 'Karan');
-                console.log(formData);
-
-                $.ajax({
-                    type:'PUT',
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    url: this.recipe,
-                    data:formData,
-                    cache:false,
-                    contentType: false,
-                    processData: false,
-                    success:function(data){
-                        console.log("success");
-                        console.log(data);
-                    },
-                    error: function(data){
-                        console.log("error");
-                        console.log(data);
                     }
                 });
 
@@ -320,6 +307,7 @@
             cancelChanges: function(){
                 // Rollback changes to the original state
                 this.my_recipe = temp_recipe;
+                this.image = null;
 
                 this.editable = false;
             },
@@ -345,7 +333,7 @@
                 var last = this.recipe.length;
                 var substring = this.recipe.substring(last-7, last);
                 return (substring == 'recipes');
-            },
+            }
         },
 
         // Order the directions by step number

@@ -15,9 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::post('test', function (){
-    return 'Request successful';
-});
+Route::post('recipes/photos', 'RecipesController@saveImage');
 
 Auth::routes();
 

@@ -6,12 +6,14 @@ use App\Direction;
 use App\Http\Requests\DeleteRecipesRequest;
 use App\Http\Requests\StoreRecipesRequest;
 use App\Http\Requests\UpdateRecipesRequest;
+use App\Http\Requests\StoreImagesRequest;
 use Illuminate\Http\Request;
 use App\Recipe;
 use App\Ingredient;
 
 use App\Http\Controllers\Traits\FileUploadTrait;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Storage;
 
 class RecipesController extends Controller
 {
@@ -159,5 +161,10 @@ class RecipesController extends Controller
         }
 
         return 'Delete Successful.';
+    }
+
+    public function saveImage(StoreImagesRequest $request){
+        $this->saveFiles($request);
+        return 'Saved Image.';
     }
 }

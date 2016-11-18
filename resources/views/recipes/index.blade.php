@@ -18,7 +18,7 @@
                         <button class="btn btn-default recipe" data-toggle="modal" data-target="#recipeModal" data-recipe="{{ route('recipes.show', [$recipe->id]) }}">
                             <div>
                                 @if($recipe->photo != '')
-                                    <img src="{{ asset('uploads/thumb/'.$recipe->photo) }}">
+                                    <img src="{{ asset('uploads/'.$recipe->photo) }}">
                                 @else
                                     <img src="{{asset('images/red-cake.jpg')}}" alt="Red Cake">
                                 @endif
