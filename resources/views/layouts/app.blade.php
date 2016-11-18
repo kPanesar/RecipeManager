@@ -24,23 +24,26 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/') }}">
-                    Recipe Manager
-                </a>
+                @if(Auth::check())
+                    <!-- Branding Image -->
+                    <a class="navbar-brand" href="{{ url('recipes') }}">
+                        <span class="text-red">Recipe Manager</span>
+                    </a>
+                @else
+                    <a class="navbar-brand" href="{{ url('/') }}">
+                        <span class="text-red">Recipe Manager</span>
+                    </a>
+                @endif
+
             </div>
 
             <div class="collapse navbar-collapse" id="app-navbar-collapse">
                 @if(Auth::check())
                     {{--Code for logged in user--}}
 
-                    <!-- Left Side Of Navbar -->
-                    <ul class="nav navbar-nav">
-                        <li><a href="{{ url('recipes') }}" >My Recipes</a></li>
-                    </ul>
                     <!-- Right Side Of Navbar -->
                     <ul class="nav navbar-nav navbar-right">
-                        <li><a href="">Hello {{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}!</a></li>
+                        <li class="user-name">Hello, {{{ isset(Auth::user()->name) ? Auth::user()->name : Auth::user()->email }}}!</li>
                         <li>
                             <a href="{{ url('/logout') }}"
                                onclick="event.preventDefault();

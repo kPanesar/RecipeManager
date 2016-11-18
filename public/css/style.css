@@ -11,7 +11,7 @@ h1{
 }
 
 body{
-    color: #550622;;
+    color: #550622;
 }
 
 .navbar-default {
@@ -43,11 +43,15 @@ body{
 }
 
 .create-recipe{
-    height: 300px;
-    width: 100%;
+    height: 240px;
+    width: 80%;
     color: #ccd0d2;
-    margin: 20px auto;
+    margin: 35px auto;
     display: block;
+    border-radius: 6px;
+}
+.create-recipe:hover{
+    background-color: #f7f3f8;
 }
 
 .recipe{
@@ -55,14 +59,19 @@ body{
     width: 100%;
     color: #ccd0d2;
     margin: 20px auto;
-    padding: 10px;
+    padding: 15px;
     border: none;
     position: relative;
 }
+.recipe:hover{
+    background-color: #f7f3f8;
+    border-radius: 7px;
+}
+
 .recipe div{
     height: 240px;
     overflow: hidden;
-    border-radius: 5px;
+    border-radius: 6px;
 }
 
 .recipe-bullet{
@@ -99,13 +108,25 @@ body{
     padding: 0;
     max-height: 300px;
     overflow: hidden;
+    border-top-left-radius: 6px;
+    border-top-right-radius: 6px;
 }
 
 .recipe-img{
+    /*height: auto;*/
+    /*width: 100%;*/
+    /*position: relative;*/
+    /*top: -200px;*/
+    width: auto\9;
     height: auto;
-    width: 100%;
-    position: relative;
-    top: -200px;
+    max-width: 100%; /* Auto scale */
+    vertical-align: middle;
+    border: 0;
+    -ms-interpolation-mode: bicubic;
+}
+
+.recipe-subtitle{
+    margin: 50px 0 20px 0;
 }
 
 /*Button Styles*/
@@ -129,6 +150,12 @@ body{
     border: none;
 }
 
+.btn-default:focus,
+.btn-default:active{
+    background-color: transparent;
+    border-color: #cf012f;
+}
+
 /*Link Styles*/
 a, .btn-link{
     color: #cf012f;
@@ -144,7 +171,68 @@ a:visited,
 
 /*Navbar Style*/
 .navbar-default{
-    background: none;;
+    background: none;
+    font-size: 1.1em;
+}
+
+.user-name{
+    margin: 15px 20px 0px 20px;
+}
+
+.remove-item{
+    margin-left: 5px;
+    font-size: 0.9em;
+    color: #cccccc;
+    display: inline-block;
+}
+.remove-item:hover{
+    color: #cf012f;
+}
+
+
+.fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+}
+.fade-enter, .fade-leave-active {
+    opacity: 0
+}
+
+ul, ol{
+    margin-top: 20px;
+}
+ol{
+    margin-left: -25px;
+}
+
+.form-title{
+    font-size: 2.5em;
+    font-weight: 900;
+    height: 55px;
+}
+.form-title:focus{
+    color: #cf012f;
+}
+
+textarea:focus,
+input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+    border: 1px solid rgba(207, 1, 47, 1);
+    /*box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset, 0 0 8px rgba(207, 1, 47, 0.4);*/
+    box-shadow: none;
+    outline: 0 none;
 }
 
 /*----------------------------------------*/
@@ -185,8 +273,23 @@ a:visited,
     margin: 0;
 }
 
+.space-top{
+    margin-top: 10px;
+}
+
 .margin-top-lg{
     margin-top: 50px;
+}
+
+.thin-column-right{
+    padding-right: 5px;
+}
+.thin-column{
+    padding-right: 5px;
+    padding-left: 5px;
+}
+.thin-column-left{
+    padding-left: 5px;
 }
 
 [v-cloak] { display:none; }

@@ -15,12 +15,11 @@
                     <form v-show="showForm">
                         <div class="form-group">
                             <label for="name" class="sr-only">Name</label>
-                            <input id="name"  v-model="my_recipe.name" class="form-control form-title" placeholder="Recipe Name">
-                            <span class="bar"></span>
+                            <input id="name" type="text"  v-model="my_recipe.name" class="form-control form-title" placeholder="Recipe Name">
                         </div>
                         <div class="form-group">
                             <label for="description" class="sr-only">Description</label>
-                            <textarea id="description"  v-model="my_recipe.description" class="form-control" placeholder="Recipe Description"></textarea>
+                            <textarea id="description" v-model="my_recipe.description" class="form-control" placeholder="Recipe Description"></textarea>
                         </div>
                         <div>
                             <input type="file" v-on:change="grabImage">
@@ -29,36 +28,42 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-sm-4">
-                    <h2>Ingredients</h2>
-                    <form class="form-inline" v-show="showForm">
-                        <div class="form-group">
-                            <label for="quantity" class="sr-only">Quantity</label>
-                            <input id="quantity"
-                                   type="number"
-                                   v-model="new_ingredient.quantity"
-                                   class="form-control"
-                                   placeholder="Quantity">
+                <div class="col-sm-5">
+                    <h2 class="recipe-subtitle">Ingredients</h2>
+                    <div v-show="showForm">
+                        <div class="row" >
+                            <div class="col-xs-4 thin-column-right">
+                                <label for="quantity" class="sr-only">Quantity</label>
+                                <input id="quantity"
+                                       type="number"
+                                       v-model="new_ingredient.quantity"
+                                       class="form-control"
+                                       placeholder="Qt.">
+                            </div>
+                            <div class="col-xs-8 thin-column-left">
+                                <label for="unit" class="sr-only">Unit</label>
+                                <input id="unit"
+                                       type="text"
+                                       v-model="new_ingredient.unit"
+                                       class="form-control"
+                                       placeholder="Unit">
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="unit" class="sr-only">Unit</label>
-                            <input id="unit"
-                                   type="text"
-                                   v-model="new_ingredient.unit"
-                                   class="form-control"
-                                   placeholder="Unit">
+                        <div class="row space-top">
+                            <div class="col-xs-10 thin-column-right">
+                                <label for="ingredient-name" class="sr-only">Name</label>
+                                <input id="ingredient-name"
+                                       type="text"
+                                       v-model="new_ingredient.name"
+                                       class="form-control"
+                                       placeholder="Ingredient">
+                            </div>
+                            <div class="col-xs-2 thin-column-left">
+                                <button class="btn btn-primary" @click="addIngredient"><span class="glyphicon glyphicon-plus"></span></button>
+                                <br>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="ingredient-name" class="sr-only">Name</label>
-                            <input id="ingredient-name"
-                                   type="text"
-                                   v-model="new_ingredient.name"
-                                   class="form-control"
-                                   placeholder="Ingredient">
-                        </div>
-                        <button class="btn btn-primary" @click="addIngredient"><span class="glyphicon glyphicon-plus"></span></button>
-                        <br>
-                    </form>
+                    </div>
 
                     <ul class="list-unstyled">
                         <ingredient v-for="(ingredient, index) in my_recipe.ingredients"
@@ -68,18 +73,18 @@
                         ></ingredient>
                     </ul>
                 </div>
-                <div class="col-sm-8">
-                    <h2>Directions</h2>
-                    <form class="form-inline" v-show="showForm">
-                        <div class="form-group">
+                <div class="col-sm-7">
+                    <h2 class="recipe-subtitle">Directions</h2>
+                    <div class="row" v-show="showForm">
+                        <div class="col-xs-3 thin-column-right">
                             <label for="step-num" class="sr-only">Step Number</label>
                             <input id="step-num"
                                    type="number"
                                    v-model="new_direction.step_num"
                                    class="form-control"
-                                   placeholder="Step Number">
+                                   placeholder="Step">
                         </div>
-                        <div class="form-group">
+                        <div class="col-xs-8 thin-column">
                             <label for="direction-text" class="sr-only">Direction</label>
                             <input id="direction-text"
                                    type="text"
@@ -87,9 +92,11 @@
                                    class="form-control"
                                    placeholder="Direction">
                         </div>
-                        <button class="btn btn-primary" @click="addDirection"><span class="glyphicon glyphicon-plus"></span></button>
-                        <br>
-                    </form>
+                        <div class="col-xs-1 thin-column-left">
+                            <button class="btn btn-primary" @click="addDirection"><span class="glyphicon glyphicon-plus"></span></button>
+                            <br>
+                        </div>
+                    </div>
 
                     <ol class="rounded-list">
                         <direction v-for="(direction, index) in orderedDirections"
@@ -237,16 +244,24 @@
 
             addIngredient: function (e) {
                 e.preventDefault();
-                this.new_ingredient.recipe_id =  this.my_recipe.id;
-                this.new_ingredient.quantity = parseInt(this.new_ingredient.quantity); //Convert quantity to a number
-                this.my_recipe.ingredients.push(this.new_ingredient);
-                this.new_ingredient =
+
+                if(this.new_ingredient.name != ''){
+                    this.new_ingredient.recipe_id =  this.my_recipe.id;
+                    if(this.new_ingredient.quantity != null){
+                        //Convert quantity to a number
+                        this.new_ingredient.quantity = parseInt(this.new_ingredient.quantity);
+                    }
+                    this.my_recipe.ingredients.push(this.new_ingredient);
+
+                    //Preserve user form inputs
+                    this.new_ingredient =
                     {
                         quantity    : null,
                         unit        : '',
                         name        : '',
                         recipe_id   : this.my_recipe.ingredients.recipe_id
                     }
+                }
             },
 
             addDirection: function (e) {
@@ -362,20 +377,3 @@
     }
 
 </script>
-
-<style>
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s
-    }
-    .fade-enter, .fade-leave-active {
-        opacity: 0
-    }
-
-    ul, ol{
-        margin-top: 15px;
-    }
-    ol{
-        margin-left: -25px;
-    }
-
-</style>
